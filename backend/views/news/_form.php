@@ -29,7 +29,7 @@ use yii\helpers\ArrayHelper;
     ?>
     <?= $form->field($model, 'category_id')->dropDownList($categoryList, ['prompt' => 'Select Category']) ?>
 
-    <?= $form->field($model, 'photo')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'photo')->fileInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'video')->textInput(['maxlength' => true]) ?>
 

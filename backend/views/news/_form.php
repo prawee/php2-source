@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\models\Category;
 use yii\helpers\ArrayHelper;
+use kartik\date\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\News */
@@ -16,7 +17,19 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'date_time')->textInput() ?>
+    <?php //$form->field($model, 'date_time')->textInput(); ?>
+    <?php
+    echo '<b>'.$model->getAttributeLabel('date_time').'</b>';
+    echo DatePicker::widget([
+        'name' => 'date_time', 
+        'value' => date('Y-m-d'),
+        'options' => ['placeholder' => 'Select date ...'],
+        'pluginOptions' => [
+            'format' => 'yyyy-mm-dd',
+            'todayHighlight' => true
+        ]
+    ]);
+    ?>
 
     <?= $form->field($model, 'place')->textInput(['maxlength' => true]) ?>
 

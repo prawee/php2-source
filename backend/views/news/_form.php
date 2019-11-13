@@ -29,9 +29,25 @@ use yii\helpers\ArrayHelper;
     ?>
     <?= $form->field($model, 'category_id')->dropDownList($categoryList, ['prompt' => 'Select Category']) ?>
 
-    <?= $form->field($model, 'photo')->fileInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'video')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+        <div class="col-sm-3">
+            <?= $form->field($model, 'photo')->fileInput(['maxlength' => true]) ?>
+            <?php 
+            if ($model->photo) {
+                $path='../../uploads/';
+                echo '<img src='.$path.$model->photo.' width=100 />';
+            }
+            ?>
+        </div>
+        <div class="col-sm-9">
+            <?= $form->field($model, 'video')->textInput(['maxlength' => true]) ?> 
+        </div>
+    </div>
+
+
+    
+    
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

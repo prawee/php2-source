@@ -114,9 +114,37 @@ class NewsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        print_r($model->attributes);
+        
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // }
+        if (Yii::$app->request->isPost) {
+            // keep old name for delete
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            echo '<pre>'.print_r($model->attributes, true).'</pre>';
+            $xFilename = $model->photo;
+            echo 'xFilename='.$xFilename;
+
+            $model->load(Yii::$app->request->post());
+            echo '<pre>'.print_r($model->attributes, true).'</pre>';
+            
+            // upload?
+            $file = UploadedFile::getInstance($model, 'photo');
+            if ($file) {
+                $model->photo = date('Ymdhis').'.'.$file->getExtension();
+                $path = '../../uploads/';
+                if ($file->saveAs($path.$model->photo)) {
+                    if ($xFilename)
+                        unlink($path.$xFilename);
+                }
+            } else {
+                $model->photo = $xFilename;
+            }
+            
+            if ($model->save()) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [

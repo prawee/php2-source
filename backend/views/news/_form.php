@@ -21,7 +21,8 @@ use kartik\date\DatePicker;
     <?php
     echo '<b>'.$model->getAttributeLabel('date_time').'</b>';
     echo DatePicker::widget([
-        'name' => 'date_time', 
+        'model' => $model,
+        'attribute' => 'date_time', 
         'value' => date('Y-m-d'),
         'options' => ['placeholder' => 'Select date ...'],
         'pluginOptions' => [

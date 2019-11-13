@@ -25,17 +25,29 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            
+            [
+                'attribute' => 'photo',
+                'content' => function($data) {
+                    $path='../../uploads/'.$data->photo;
+                    if ($data->photo) {
+                        return "<img src=".$path." width=50>";
+                    } else {
+                        return;
+                    }
+                    
+                }
+            ],
             //'id',
             'title',
             'date_time',
             'place',
             'detail:ntext',
             //'category_id',
-            //'photo',
+            
             //'video',
 
-            //['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

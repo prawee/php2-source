@@ -8,6 +8,7 @@ use backend\models\NewsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * NewsController implements the CRUD actions for News model.
@@ -66,9 +67,37 @@ class NewsController extends Controller
     {
         $model = new News();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (Yii::$app->request->post()) {
+            $model->load(Yii::$app->request->post());
+            print_r($model->attributes);
+
+            $file = UploadedFile::getInstance($model, 'photo');
+            //echo 'auto= xyz.'.$file->getExtension().'<br/>';
+
+            //$explode = explode('.', $file);
+            //$countArr = count($explode);
+            //$extension = $explode[$countArr-1];
+            //$newName = date('Ymdhis').'.'.$extension;
+            //echo 'manual ='.$newName;
+            $newName = date('Ymdhis').'.'.$file->getExtension();
+            $model->photo = $newName;
+            
+
+            $path = '../../uploads/'.$newName;
+            $file->saveAs($path);
+
+            //print_r($model->attributes);
+            $model->save();
+            //print_r($explode);
+            //return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
+       
+        
+
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        //     return $this->redirect(['view', 'id' => $model->id]);
+        // }
 
         return $this->render('create', [
             'model' => $model,

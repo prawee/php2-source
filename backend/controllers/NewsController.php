@@ -36,6 +36,9 @@ class NewsController extends Controller
      */
     public function actionIndex()
     {
+        if (!Yii::$app->user->can('news/index')) {
+            return $this->redirect('site/login');
+        }
         $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -53,6 +56,11 @@ class NewsController extends Controller
      */
     public function actionView($id)
     {
+        if (!Yii::$app->user->can('news/view')) {
+            echo 'no permission';
+            exit;
+            //return $this->redirect(['site/login']);
+        }
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -65,6 +73,9 @@ class NewsController extends Controller
      */
     public function actionCreate()
     {
+        if (!Yii::$app->user->can('news/create')) {
+            return $this->redirect('site/login');
+        }
         $model = new News();
 
         if (Yii::$app->request->post()) {
@@ -113,6 +124,9 @@ class NewsController extends Controller
      */
     public function actionUpdate($id)
     {
+        if (!Yii::$app->user->can('news/update')) {
+            return $this->redirect('site/login');
+        }
         $model = $this->findModel($id);
         
         
@@ -161,6 +175,11 @@ class NewsController extends Controller
      */
     public function actionDelete($id)
     {
+        if (!Yii::$app->user->can('news/delete')) {
+            echo 'no permission';
+            exit;
+            //return $this->redirect(['site/login']);
+        }
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);

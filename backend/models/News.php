@@ -2,6 +2,7 @@
 namespace backend\models;
 
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 class News extends \common\models\News 
 {
@@ -9,6 +10,7 @@ class News extends \common\models\News
     {
         return [
             TimestampBehavior::className(),
+            BlameableBehavior::className(),
         ]; 
     }
     public function attributeLabels()

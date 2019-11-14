@@ -3,7 +3,8 @@ namespace backend\models;
 
 use yii\behaviors\TimestampBehavior;
 
-class News extends \common\models\News {
+class News extends \common\models\News 
+{
     public function behaviors()
     {
         return [

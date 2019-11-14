@@ -1,7 +1,15 @@
 <?php
 namespace backend\models;
 
+use yii\behaviors\TimestampBehavior;
+
 class News extends \common\models\News {
+    public function behaviors()
+    {
+        return [
+            TimestampBehavior::className(),
+        ]; 
+    }
     public function attributeLabels()
     {
         return [
